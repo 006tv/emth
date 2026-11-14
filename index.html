@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>紫水晶服务器 | 我的世界PE 0.11~0.15</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background-color: #1e1a26;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%231e1a26'/%3E%3Crect width='20' height='20' fill='%23251f30'/%3E%3Crect x='20' y='20' width='20' height='20' fill='%23251f30'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 40px 40px;
+    color: #ded7e6;
+    min-height: 100vh;
+    padding: 30px 15px 50px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    padding: 34px 20px 28px;
+    background: #322a40;
+    border: 3px solid #574a6e;
+    border-bottom: 3px solid #17131e;
+    box-shadow: inset 0 0 0 3px #282133;
+  }
+  .gem {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    image-rendering: pixelated;
+  }
+  .gem svg { display: block; width: 100%; height: 100%; }
+  header h1 {
+    font-size: 27px;
+    color: #e9d7ff;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 2px;
+  }
+  header .sub {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #b48ee8;
+    text-shadow: 1px 1px 0 #000;
+  }
+  header .ver {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #d9c6f5;
+    background: #241d30;
+    border: 2px solid #4a3d60;
+    padding: 3px 10px;
+  }
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #9fd45f;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #9fd45f;
+    box-shadow: 0 0 8px #9fd45f;
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .panel {
+    background: #322a40;
+    border: 3px solid #574a6e;
+    border-bottom: 3px solid #17131e;
+    box-shadow: inset 0 0 0 3px #282133;
+    padding: 20px;
+    min-width: 0;
+  }
+  .panel h2 {
+    font-size: 15px;
+    color: #d4b0ff;
+    text-shadow: 1px 1px 0 #000;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #483b5e;
+  }
+
+  .ip-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1c1724;
+    border: 2px solid #483b5e;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  .ip-line .tag {
+    font-size: 12px;
+    color: #9b8fae;
+    white-space: nowrap;
+  }
+  .ip-line code {
+    flex: 1;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    color: #fff;
+    word-break: break-all;
+  }
+  .btn {
+    font-family: inherit;
+    font-size: 12px;
+    color: #fff;
+    background: #6a4f9e;
+    border: 2px solid #4a3570;
+    border-bottom: 2px solid #33244f;
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 36px;
+  }
+  .btn:hover { background: #7d5fb8; }
+  .btn:active { transform: translateY(1px); }
+  .btn.copied { background: #8a6d1f; border-color: #5f4b13; }
+
+  .detected {
+    font-size: 12px;
+    color: #9fd45f;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 0 #000;
+    min-height: 16px;
+  }
+
+  .download-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .download-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #1c1724;
+    border: 2px solid #483b5e;
+    padding: 10px 12px;
+  }
+  .dl-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .dl-name {
+    color: #d4b0ff;
+    font-size: 13px;
+  }
+  .dl-desc {
+    font-size: 11px;
+    color: #9b8fae;
+  }
+  .dl-btn {
+    font-family: inherit;
+    font-size: 12px;
+    color: #fff;
+    background: #6a4f9e;
+    border: 2px solid #4a3570;
+    border-bottom: 2px solid #33244f;
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .dl-btn:hover { background: #7d5fb8; }
+  .dl-btn:active { transform: translateY(1px); }
+
+  .os-tip {
+    display: none;
+    background: #241d30;
+    border: 2px dashed #4a3d60;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #cbb9e0;
+  }
+
+  .zip-tip {
+    display: none;
+    margin-top: 14px;
+  }
+
+  body.os-android .download-item:not([data-os="android"]) { display: none; }
+  body.os-windows .download-item:not([data-os="windows"]) { display: none; }
+  body.os-ios .download-item:not([data-os="ios"]) { display: none; }
+  body.os-other .os-tip { display: block; }
+  
+  body.os-windows .zip-tip,
+  body.os-other .zip-tip,
+  body.show-all .zip-tip { display: block; }
+  
+  body.show-all .download-item { display: flex !important; }
+  body.show-all .os-tip { display: none !important; }
+
+  .toggle-all {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: inherit;
+    font-size: 11.5px;
+    color: #9b8fae;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #574a6e;
+    padding: 2px 0;
+    cursor: pointer;
+  }
+  .toggle-all:hover { color: #d4b0ff; }
+
+  .note {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #a99cb8;
+  }
+  .note b { color: #e2d8ef; }
+
+  .notice {
+    background: #241d30;
+    border-left: 4px solid #8b5cf6;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #cbb9e0;
+  }
+  .notice time {
+    display: block;
+    font-size: 11px;
+    color: #7d7189;
+    margin-bottom: 4px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .feature {
+    background: #1c1724;
+    border: 2px solid #483b5e;
+    padding: 12px;
+  }
+  .feature h3 {
+    font-size: 13px;
+    color: #d4b0ff;
+    margin-bottom: 6px;
+  }
+  .feature p {
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #a99cb8;
+  }
+
+  .staff-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .staff-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #1c1724;
+    border: 2px solid #483b5e;
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+  .staff-row .role {
+    color: #9b8fae;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .staff-row .name {
+    color: #d4b0ff;
+    flex: 1;
+    text-align: right;
+    margin-right: 10px;
+    font-family: Consolas, monospace;
+  }
+  .staff-row .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+  .staff-row .links a {
+    color: #c9a6ff;
+    text-decoration: none;
+    font-size: 12px;
+    background: #241d30;
+    border: 1px solid #4a3d60;
+    padding: 6px 10px;
+    white-space: nowrap;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .staff-row .links a:hover {
+    background: #3a2f4d;
+    color: #e9d7ff;
+  }
+
+  details {
+    background: #1c1724;
+    border: 2px solid #483b5e;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+  }
+  details:last-child { margin-bottom: 0; }
+  summary {
+    cursor: pointer;
+    color: #d4b0ff;
+    outline: none;
+    padding: 4px 0;
+  }
+  details p {
+    margin-top: 8px;
+    line-height: 1.8;
+    color: #a99cb8;
+  }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #a99cb8;
+  }
+  .steps li:last-child { margin-bottom: 0; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 11px;
+    color: #e9d7ff;
+    background: #5b21b6;
+    border: 1px solid #8b5cf6;
+  }
+
+  footer {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 11px;
+    color: #7d7189;
+    line-height: 1.8;
+    padding: 14px;
+    border-top: 2px solid #3a3148;
+  }
+
+  code, .ip-line code, a {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  @media (min-width: 700px) {
+    body { padding: 40px 24px 70px; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .panel.span-2 { grid-column: span 2; }
+    .features { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (min-width: 1000px) {
+    body { padding: 36px 32px 60px; }
+    .wrap { max-width: 1180px; }
+
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      text-align: left;
+      gap: 24px;
+      padding: 22px 28px;
+    }
+    .gem {
+      width: 56px;
+      height: 56px;
+      margin: 0;
+    }
+    .header-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    header h1 {
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    header .sub {
+      margin-top: 0;
+      font-size: 13px;
+    }
+    .header-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    header .ver {
+      margin-top: 0;
+      font-size: 11px;
+    }
+    .status-bar {
+      margin-top: 0;
+      font-size: 11px;
+      justify-content: flex-end;
+    }
+
+    .grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .panel {
+      padding: 18px 20px;
+    }
+    .panel h2 {
+      font-size: 13px;
+      margin-bottom: 12px;
+      padding-bottom: 7px;
+      letter-spacing: 0.5px;
+    }
+    .panel.span-2 { grid-column: span 2; }
+    .panel.span-3 { grid-column: span 3; }
+
+    .ip-line {
+      padding: 9px 11px;
+      margin-bottom: 8px;
+    }
+    .ip-line code { font-size: 13.5px; }
+    .btn {
+      min-height: 30px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+    }
+    .note { font-size: 11.5px; }
+    .detected { font-size: 11.5px; margin-bottom: 10px; }
+    .download-item { padding: 9px 11px; }
+    .dl-name { font-size: 12.5px; }
+    .dl-desc { font-size: 10.5px; }
+    .dl-btn { min-height: 30px; padding: 6px 12px; font-size: 11.5px; }
+
+    .features {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .feature { padding: 10px 12px; }
+    .feature h3 { font-size: 12.5px; }
+    .feature p { font-size: 11px; }
+
+    .staff-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 7px;
+    }
+    .staff-row {
+      padding: 9px 11px;
+      font-size: 12px;
+    }
+    .staff-row .role { font-size: 11px; }
+    .staff-row .links a {
+      min-height: 28px;
+      padding: 5px 9px;
+      font-size: 11px;
+    }
+
+    details {
+      padding: 9px 11px;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+    .steps li {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .notice { font-size: 12.5px; padding: 11px 13px; }
+
+    footer {
+      font-size: 10.5px;
+      padding: 12px;
+      margin-top: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="gem">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+        <rect x="4" y="1" width="8" height="1" fill="#d9c2ff"/>
+        <rect x="3" y="2" width="10" height="1" fill="#c9a6ff"/>
+        <rect x="2" y="3" width="12" height="1" fill="#b48ee8"/>
+        <rect x="2" y="4" width="12" height="1" fill="#9d6bff"/>
+        <rect x="3" y="5" width="10" height="1" fill="#8b5cf6"/>
+        <rect x="4" y="6" width="8" height="1" fill="#7c4dcc"/>
+        <rect x="5" y="7" width="6" height="1" fill="#7c4dcc"/>
+        <rect x="6" y="8" width="4" height="1" fill="#6b3fa0"/>
+        <rect x="7" y="9" width="2" height="1" fill="#5b2fa0"/>
+        <rect x="4" y="1" width="2" height="1" fill="#f0e6ff"/>
+        <rect x="3" y="2" width="2" height="1" fill="#e0ccff"/>
+        <rect x="2" y="3" width="2" height="1" fill="#d9c2ff"/>
+        <rect x="2" y="4" width="1" height="1" fill="#c9a6ff"/>
+        <rect x="9" y="1" width="3" height="1" fill="#b48ee8"/>
+        <rect x="9" y="2" width="3" height="1" fill="#9d6bff"/>
+        <rect x="9" y="3" width="3" height="1" fill="#8b5cf6"/>
+        <rect x="9" y="4" width="3" height="1" fill="#7c4dcc"/>
+        <rect x="9" y="5" width="2" height="1" fill="#6b3fa0"/>
+        <rect x="5" y="2" width="3" height="1" fill="#e9d7ff"/>
+        <rect x="4" y="3" width="4" height="1" fill="#d9c2ff"/>
+        <rect x="4" y="4" width="4" height="1" fill="#c9a6ff"/>
+        <rect x="5" y="5" width="2" height="1" fill="#b48ee8"/>
+      </svg>
+    </div>
+    <div class="header-main">
+      <h1>紫水晶服务器</h1>
+      <p class="sub">我的世界 PE 服务器</p>
+    </div>
+    <div class="header-side">
+      <span class="ver">支持版本 0.11 ~ 0.15</span>
+      <div class="status-bar">
+        <span class="dot"></span> 服务器运行中
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="panel span-2">
+      <h2>服务器地址</h2>
+
+      <div class="ip-line">
+        <span class="tag">主 IP</span>
+        <code id="ip1">gz.2.frp.one:8799</code>
+        <button class="btn" onclick="copyText('gz.2.frp.one:8799', this)">复制</button>
+      </div>
+
+      <div class="ip-line">
+        <span class="tag">备用</span>
+        <code id="ip2">47.102.197.158:51472</code>
+        <button class="btn" onclick="copyText('47.102.197.158:51472', this)">复制</button>
+      </div>
+
+      <p class="note" style="margin-top:14px;">
+        主 IP 连不上时换备用地址，两个都能进同一个服
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>玩家交流群</h2>
+      <div class="ip-line">
+        <span class="tag">QQ群</span>
+        <code id="qq">1132656634</code>
+        <button class="btn" onclick="copyText('1132656634', this)">复制</button>
+      </div>
+      <p class="note" style="margin-top:14px;">
+        进群可获取开服通知、活动信息和问题反馈
+      </p>
+    </div>
+
+    <div class="panel span-2">
+      <h2>客户端下载</h2>
+      <p class="detected" id="detectedTip"></p>
+
+      <div class="download-group">
+        <div class="download-item" data-os="android">
+          <div class="dl-info">
+            <span class="dl-name">安卓客户端</span>
+            <span class="dl-desc">0.14.3</span>
+          </div>
+          <a class="dl-btn" href="https://h1064.lanosso.com/651608ef38d35d25b68ebe90c2dba079/6af847d9/2026/08/09/e5279a8c3587a26b32e4a41a5b7823b4.apk?fn=%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C0.13%E6%80%80%E6%97%A7_0.14.3.apk" target="_blank" rel="noopener">下载</a>
+        </div>
+
+        <div class="download-item" data-os="ios">
+          <div class="dl-info">
+            <span class="dl-name">iOS 客户端</span>
+            <span class="dl-desc">需信任证书</span>
+          </div>
+          <a class="dl-btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/006tv/game/main/manifest.plist">安装</a>
+        </div>
+
+        <div class="download-item" data-os="windows">
+          <div class="dl-info">
+            <span class="dl-name">Windows x64</span>
+            <span class="dl-desc">0.15.4 · 需正版账号</span>
+          </div>
+          <a class="dl-btn" href="https://zip3.webgetstore.com/8be0804fdd7b03248c0e475177a1326f/6af84b18/2026/11/14/4acf773ca573a1a10716edbfff53e636.zip?fn=Microsoft0.15.4x64.zip" target="_blank" rel="noopener">下载</a>
+        </div>
+
+        <div class="download-item" data-os="windows">
+          <div class="dl-info">
+            <span class="dl-name">Windows x86</span>
+            <span class="dl-desc">0.15.4 · 需正版账号</span>
+          </div>
+          <a class="dl-btn" href="https://zip3.webgetstore.com/dd3c5d3558d70ff4e6ea234d886a1739/6af84b4e/2026/11/14/981a07e31f9a57596e4e15bb5df718d7.zip?fn=Microsoft0.15.4x86.zip" target="_blank" rel="noopener">下载</a>
+        </div>
+
+        <div class="download-item" data-os="windows">
+          <div class="dl-info">
+            <span class="dl-name">Windows 无正版账号</span>
+            <span class="dl-desc">0.14</span>
+          </div>
+          <a class="dl-btn" href="https://zip3.webgetstore.com/cf945c1fe070f6961026cf6b01e2ca30/6af84b6f/2026/11/14/9804a21fcc2d11bafe1c4f55bf0ac3a8.zip?fn=0.14.zip" target="_blank" rel="noopener">下载</a>
+        </div>
+      </div>
+
+      <div class="os-tip">
+        当前设备暂不支持直接下载客户端，请使用安卓手机、iPhone 或 Windows 电脑访问本页面
+      </div>
+
+      <p class="note zip-tip">
+        Windows 下载下来是 zip 压缩包，需要先解压再运行
+      </p>
+
+      <button class="toggle-all" id="toggleAll" onclick="toggleAll()">显示全部平台</button>
+    </div>
+
+    <div class="panel">
+      <h2>公告</h2>
+      <div class="notice">
+        <time>2026-01-01</time>
+        欢迎来到紫水晶服务器！新玩家进服可找管理员领取新手礼包，主城附近请勿随意破坏建筑
+      </div>
+    </div>
+
+    <div class="panel span-2">
+      <h2>服务器特色</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>纯净生存</h3>
+          <p>保留原版生存体验，适合长期养老和建筑党</p>
+        </div>
+        <div class="feature">
+          <h3>领地保护</h3>
+          <p>支持圈地，防止熊孩子拆家，安心发展</p>
+        </div>
+        <div class="feature">
+          <h3>多版本兼容</h3>
+          <p>0.11 到 0.15 均可进入，老版本手机也能玩</p>
+        </div>
+        <div class="feature">
+          <h3>稳定在线</h3>
+          <p>主备双线路，掉线可切换备用 IP 继续连接</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>进入服务器</h2>
+      <ol class="steps">
+        <li>打开我的世界 PE，点击「多人游戏」</li>
+        <li>点击「添加服务器」，名称随意填，比如“紫水晶”</li>
+        <li>服务器地址填主 IP，粘进去即可</li>
+        <li>保存后点击进入，主 IP 失败就换备用 IP</li>
+      </ol>
+    </div>
+
+    <div class="panel span-3">
+      <h2>管理团队</h2>
+      <div class="staff-list">
+        <div class="staff-row">
+          <span class="role">服主</span>
+          <span class="name">333</span>
+          <div class="links">
+            <a href="https://b23.tv/HX8QK07" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+        <div class="staff-row">
+          <span class="role">副服主</span>
+          <span class="name">7799</span>
+          <div class="links">
+            <a href="https://b23.tv/A8RvPcs" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+        <div class="staff-row">
+          <span class="role">建筑师</span>
+          <span class="name">wzy6790</span>
+          <div class="links">
+            <a href="https://b23.tv/kwsS7n2" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+        <div class="staff-row">
+          <span class="role">建筑师</span>
+          <span class="name">333</span>
+          <div class="links">
+            <a href="https://b23.tv/HX8QK07" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+        <div class="staff-row">
+          <span class="role">宣传</span>
+          <span class="name">wzy6790</span>
+          <div class="links">
+            <a href="https://b23.tv/kwsS7n2" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+        <div class="staff-row">
+          <span class="role">治安管理</span>
+          <span class="name">006</span>
+          <div class="links">
+            <a href="https://b23.tv/kRdJNh8" target="_blank" rel="noopener">B站主页</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel span-3">
+      <h2>常见问题</h2>
+      <details>
+        <summary>连不上服务器怎么办？</summary>
+        <p>先确认版本在 0.11~0.15 之间，再检查地址有没有输错。主 IP 连不上就换备用 IP，两个都失败可以稍后再试或联系管理员</p>
+      </details>
+      <details>
+        <summary>支持哪些版本？</summary>
+        <p>目前支持 0.11 到 0.15 的 PE 版本，太新或太老的客户端可能无法进入</p>
+      </details>
+      <details>
+        <summary>服务器是什么核心？</summary>
+        <p>Vertex 核心，基于 incore 修改</p>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 紫水晶服务器 · 保留所有权利<br>
+    核心基于 incore 修改，非官方版本
+  </footer>
+
+</div>
+
+<script>
+function copyText(text, btn) {
+  const ok = () => {
+    const old = btn.textContent;
+    btn.textContent = '已复制';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = old;
+      btn.classList.remove('copied');
+    }, 1400);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(ok).catch(() => fallback(text, ok));
+  } else {
+    fallback(text, ok);
+  }
+}
+function fallback(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); cb(); } catch(e) { alert('复制失败，请手动复制'); }
+  document.body.removeChild(ta);
+}
+
+function detectOS() {
+  var ua = navigator.userAgent || '';
+  var tip = document.getElementById('detectedTip');
+  var os = 'other';
+
+  if (/iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    os = 'ios';
+  } else if (/Android/i.test(ua)) {
+    os = 'android';
+  } else if (/Windows/i.test(ua)) {
+    os = 'windows';
+  }
+
+  document.body.classList.add('os-' + os);
+
+  if (os === 'android') {
+    tip.textContent = '已为你匹配安卓客户端';
+  } else if (os === 'windows') {
+    tip.textContent = '已为你匹配 Windows 客户端';
+  } else if (os === 'ios') {
+    tip.textContent = '已为你匹配 iOS 客户端';
+  } else {
+    tip.textContent = '未识别到系统，已显示全部客户端';
+  }
+}
+
+var allShown = false;
+function toggleAll() {
+  allShown = !allShown;
+  document.body.classList.toggle('show-all', allShown);
+  var btn = document.getElementById('toggleAll');
+  btn.textContent = allShown ? '仅显示本机平台' : '显示全部平台';
+}
+
+detectOS();
+</script>
+</body>
+  </html>
