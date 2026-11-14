@@ -148,14 +148,6 @@
   .btn:active { transform: translateY(1px); }
   .btn.copied { background: #8a6d1f; border-color: #5f4b13; }
 
-  .detected {
-    font-size: 12px;
-    color: #9fd45f;
-    margin-bottom: 12px;
-    text-shadow: 1px 1px 0 #000;
-    min-height: 16px;
-  }
-
   .download-group {
     display: flex;
     flex-direction: column;
@@ -530,7 +522,6 @@
       font-size: 11.5px;
     }
     .note { font-size: 11.5px; }
-    .detected { font-size: 11.5px; margin-bottom: 10px; }
     .download-item { padding: 9px 11px; }
     .dl-name { font-size: 12.5px; }
     .dl-desc { font-size: 10.5px; }
@@ -656,7 +647,6 @@
 
     <div class="panel span-2">
       <h2>客户端下载</h2>
-      <p class="detected" id="detectedTip"></p>
 
       <div class="download-group">
         <div class="download-item" data-os="android">
@@ -872,7 +862,6 @@ function fallback(text, cb) {
 
 function detectOS() {
   var ua = navigator.userAgent || '';
-  var tip = document.getElementById('detectedTip');
   var os = 'other';
 
   if (/iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
@@ -884,16 +873,6 @@ function detectOS() {
   }
 
   document.body.classList.add('os-' + os);
-
-  if (os === 'android') {
-    tip.textContent = '已为你匹配安卓客户端';
-  } else if (os === 'windows') {
-    tip.textContent = '已为你匹配 Windows 客户端';
-  } else if (os === 'ios') {
-    tip.textContent = '已为你匹配 iOS 客户端（跳转存档页）';
-  } else {
-    tip.textContent = '未识别到系统，已显示全部客户端';
-  }
 }
 
 var allShown = false;
@@ -907,4 +886,4 @@ function toggleAll() {
 detectOS();
 </script>
 </body>
-       </html>
+           </html>
