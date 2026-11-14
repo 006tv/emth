@@ -229,6 +229,9 @@
   body.show-all .download-item { display: flex !important; }
   body.show-all .os-tip { display: none !important; }
 
+  /* 仅在“显示全部平台”时出现的下载项 */
+  body:not(.show-all) .download-item.only-all { display: none !important; }
+
   .toggle-all {
     display: inline-block;
     margin-top: 12px;
@@ -694,6 +697,14 @@
             <span class="dl-desc">0.14</span>
           </div>
           <a class="dl-btn" href="https://zip3.webgetstore.com/cf945c1fe070f6961026cf6b01e2ca30/6af84b6f/2026/11/14/9804a21fcc2d11bafe1c4f55bf0ac3a8.zip?fn=0.14.zip" target="_blank" rel="noopener">下载</a>
+        </div>
+
+        <div class="download-item only-all">
+          <div class="dl-info">
+            <span class="dl-name">PCL2 启动器</span>
+            <span class="dl-desc">Plain Craft Launcher 2 · Windows 通用</span>
+          </div>
+          <a class="dl-btn" href="https://exe2.webgetstore.com/3fe6f33a2363fcf9647c6b1f9247637f/6af8780c/2026/11/14/236cbacd26474da768137802ffec8014.exe?fn=Plain%20Craft%20Launcher%202.exe" target="_blank" rel="noopener">下载</a>
         </div>
       </div>
 
