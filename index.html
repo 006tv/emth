@@ -265,6 +265,50 @@
     margin-bottom: 4px;
   }
 
+  .notice + .notice {
+    margin-top: 10px;
+  }
+
+  .notice.highlight {
+    position: relative;
+    background: linear-gradient(135deg, #2b1f3d 0%, #241d30 55%, #3a2452 100%);
+    border-left: 4px solid #c084fc;
+    box-shadow: inset 0 0 0 1px #6d4aa8, 0 0 14px rgba(139, 92, 246, 0.18);
+    color: #eadcff;
+  }
+
+  .notice.highlight time {
+    color: #c9a6ff;
+  }
+
+  .notice.highlight strong {
+    color: #ffffff;
+  }
+
+  .notice-badge {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #1e1a26;
+    background: #d9c2ff;
+    border: 1px solid #f0e6ff;
+  }
+
+  .notice-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .notice-actions .btn {
+    min-height: 32px;
+    padding: 6px 10px;
+  }
+
   .features {
     display: grid;
     grid-template-columns: 1fr;
@@ -599,8 +643,8 @@
       <h2>玩家交流群</h2>
       <div class="ip-line">
         <span class="tag">QQ群</span>
-        <code id="qq">1132656634</code>
-        <button class="btn" onclick="copyText('1132656634', this)">复制</button>
+        <code id="qq">946147296</code>
+        <button class="btn" onclick="copyText('946147296', this)">复制</button>
       </div>
       <p class="note" style="margin-top:14px;">
         进群可获取开服通知、活动信息和问题反馈
@@ -666,6 +710,17 @@
 
     <div class="panel">
       <h2>公告</h2>
+
+      <div class="notice highlight">
+        <span class="notice-badge">合作公告</span>
+        <time>2026-11-14</time>
+        <strong>紫水晶服务器 × 绒星梦境服务器 达成合作</strong><br>
+        双方已建立合作关系，本次合作项目为服务器核心（Vertex 核心，基于 incore 修改）。具体服务器信息请进群了解。
+        <div class="notice-actions">
+          <button class="btn" onclick="copyText('946147296', this)">复制群号</button>
+        </div>
+      </div>
+
       <div class="notice">
         <time>2026-01-01</time>
         欢迎来到紫水晶服务器！新玩家进服可找管理员领取新手礼包，主城附近请勿随意破坏建筑
@@ -841,4 +896,4 @@ function toggleAll() {
 detectOS();
 </script>
 </body>
- </html>
+         </html>
