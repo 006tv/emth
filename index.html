@@ -623,9 +623,9 @@
         <div class="download-item" data-os="ios">
           <div class="dl-info">
             <span class="dl-name">iOS 客户端</span>
-            <span class="dl-desc">需信任证书</span>
+            <span class="dl-desc">跳转至存档页下载</span>
           </div>
-          <a class="dl-btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/006tv/game/main/manifest.plist">安装</a>
+          <a class="dl-btn" href="https://mc.minebbs.com/?platform=2&environment=1&version=0.14.3" target="_blank" rel="noopener">前往下载</a>
         </div>
 
         <div class="download-item" data-os="windows">
@@ -824,7 +824,7 @@ function detectOS() {
   } else if (os === 'windows') {
     tip.textContent = '已为你匹配 Windows 客户端';
   } else if (os === 'ios') {
-    tip.textContent = '已为你匹配 iOS 客户端';
+    tip.textContent = '已为你匹配 iOS 客户端（跳转存档页）';
   } else {
     tip.textContent = '未识别到系统，已显示全部客户端';
   }
@@ -841,4 +841,4 @@ function toggleAll() {
 detectOS();
 </script>
 </body>
-  </html>
+ </html>
