@@ -209,6 +209,38 @@
     margin-top: 14px;
   }
 
+  .pwd-tip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #2b1f3d;
+    border: 2px solid #8b5cf6;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #eadcff;
+    box-shadow: inset 0 0 0 1px #6d4aa8, 0 0 12px rgba(139, 92, 246, 0.2);
+  }
+  .pwd-tip .pwd-label {
+    font-size: 12px;
+    color: #c9a6ff;
+    white-space: nowrap;
+  }
+  .pwd-tip .pwd-value {
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+    background: #1c1724;
+    border: 1px solid #6d4aa8;
+    padding: 2px 10px;
+  }
+  .pwd-tip .pwd-hint {
+    font-size: 11px;
+    color: #a99cb8;
+  }
+
   body.os-android .download-item:not([data-os="android"]) { display: none; }
   body.os-windows .download-item:not([data-os="windows"]) { display: none; }
   body.os-ios .download-item:not([data-os="ios"]) { display: none; }
@@ -527,6 +559,9 @@
     .dl-desc { font-size: 10.5px; }
     .dl-btn { min-height: 30px; padding: 6px 12px; font-size: 11.5px; }
 
+    .pwd-tip { padding: 9px 12px; font-size: 12.5px; }
+    .pwd-tip .pwd-value { font-size: 15px; padding: 1px 9px; }
+
     .features {
       grid-template-columns: 1fr 1fr;
       gap: 8px;
@@ -648,13 +683,18 @@
     <div class="panel span-2">
       <h2>客户端下载</h2>
 
+      <div class="pwd-tip">
+        <span class="pwd-label">下载密码</span>
+        <span class="pwd-value">1234</span>
+      </div>
+
       <div class="download-group">
         <div class="download-item" data-os="android">
           <div class="dl-info">
             <span class="dl-name">安卓客户端</span>
             <span class="dl-desc">0.14.3</span>
           </div>
-          <a class="dl-btn" href="https://h1064.lanosso.com/651608ef38d35d25b68ebe90c2dba079/6af847d9/2026/08/09/e5279a8c3587a26b32e4a41a5b7823b4.apk?fn=%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C0.13%E6%80%80%E6%97%A7_0.14.3.apk" target="_blank" rel="noopener">下载</a>
+          <a class="dl-btn" href="https://wwboi.lanzoue.com/iO2jl41e80ib" target="_blank" rel="noopener">下载</a>
         </div>
 
         <div class="download-item" data-os="ios">
@@ -670,7 +710,7 @@
             <span class="dl-name">Windows x64</span>
             <span class="dl-desc">0.15.4 · 需正版账号</span>
           </div>
-          <a class="dl-btn" href="https://zip3.webgetstore.com/8be0804fdd7b03248c0e475177a1326f/6af84b18/2026/11/14/4acf773ca573a1a10716edbfff53e636.zip?fn=Microsoft0.15.4x64.zip" target="_blank" rel="noopener">下载</a>
+          <a class="dl-btn" href="https://wwboi.lanzoue.com/ieWV54fyfmhi" target="_blank" rel="noopener">下载</a>
         </div>
 
         <div class="download-item" data-os="windows">
@@ -678,7 +718,7 @@
             <span class="dl-name">Windows x86</span>
             <span class="dl-desc">0.15.4 · 需正版账号</span>
           </div>
-          <a class="dl-btn" href="https://zip3.webgetstore.com/dd3c5d3558d70ff4e6ea234d886a1739/6af84b4e/2026/11/14/981a07e31f9a57596e4e15bb5df718d7.zip?fn=Microsoft0.15.4x86.zip" target="_blank" rel="noopener">下载</a>
+          <a class="dl-btn" href="https://wwboi.lanzoue.com/iVTrK4fyfl3i" target="_blank" rel="noopener">下载</a>
         </div>
 
         <div class="download-item" data-os="windows">
@@ -686,7 +726,7 @@
             <span class="dl-name">Windows 无正版账号</span>
             <span class="dl-desc">0.14</span>
           </div>
-          <a class="dl-btn" href="https://zip3.webgetstore.com/cf945c1fe070f6961026cf6b01e2ca30/6af84b6f/2026/11/14/9804a21fcc2d11bafe1c4f55bf0ac3a8.zip?fn=0.14.zip" target="_blank" rel="noopener">下载</a>
+          <a class="dl-btn" href="https://wwboi.lanzoue.com/iCOsn4fyfjqj" target="_blank" rel="noopener">下载</a>
         </div>
 
         <div class="download-item only-all">
@@ -694,7 +734,7 @@
             <span class="dl-name">PCL2 启动器</span>
             <span class="dl-desc">Plain Craft Launcher 2 · Windows 通用</span>
           </div>
-          <a class="dl-btn" href="https://exe2.webgetstore.com/3fe6f33a2363fcf9647c6b1f9247637f/6af8780c/2026/11/14/236cbacd26474da768137802ffec8014.exe?fn=Plain%20Craft%20Launcher%202.exe" target="_blank" rel="noopener">下载</a>
+          <a class="dl-btn" href="https://wwboi.lanzoue.com/iYnST4fzf4aj" target="_blank" rel="noopener">下载</a>
         </div>
       </div>
 
@@ -703,7 +743,7 @@
       </div>
 
       <p class="note zip-tip">
-        Windows 下载下来是 zip 压缩包，需要先解压再运行
+        Windows 下载下来是压缩包，需要先解压再运行
       </p>
 
       <button class="toggle-all" id="toggleAll" onclick="toggleAll()">显示全部平台</button>
@@ -886,4 +926,4 @@ function toggleAll() {
 detectOS();
 </script>
 </body>
-           </html>
+         </html>
